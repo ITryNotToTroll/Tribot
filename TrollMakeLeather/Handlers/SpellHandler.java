@@ -52,26 +52,8 @@ public class SpellHandler {
 					@Override
 					public boolean active() {
 						General.sleep(20, 30);
-						if(System.currentTimeMillis() >= Variables.abc.TIME_TRACKER.CHECK_XP.next()) {
-							Variables.abc.performXPCheck(SKILLS.MAGIC);
-							Variables.abc.TIME_TRACKER.CHECK_XP.reset();
-						}
-
-						if(System.currentTimeMillis() >= Variables.abc.TIME_TRACKER.EXAMINE_OBJECT.next()) {
-							Variables.abc.performExamineObject();
-							Variables.abc.TIME_TRACKER.EXAMINE_OBJECT.reset();
-						}
-
-						if(System.currentTimeMillis() >= Variables.abc.TIME_TRACKER.ROTATE_CAMERA.next()) {
-							Variables.abc.performRotateCamera();
-							Variables.abc.TIME_TRACKER.ROTATE_CAMERA.reset();
-						}
-
-						if(System.currentTimeMillis() >= Variables.abc.TIME_TRACKER.LEAVE_GAME.next()) {
-							Variables.abc.performLeaveGame();
-							Variables.abc.TIME_TRACKER.LEAVE_GAME.reset();
-						}
-
+					
+						Variables.abc.performTimedActions(SKILLS.MAGIC);
 
 						return start > Inventory.getCount(Variables.leather.getID());
 					}

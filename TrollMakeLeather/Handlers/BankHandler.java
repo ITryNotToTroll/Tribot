@@ -47,8 +47,7 @@ public class BankHandler {
 						Variables.running = false;
 				} else
 					Variables.running = false;
-
-				General.println("3");
+				
 				Banking.withdraw(0, Variables.leather.getID());
 
 				Timing.waitCondition(new Condition() {
