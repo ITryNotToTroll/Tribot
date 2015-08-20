@@ -27,7 +27,7 @@ public class SmeltingHandler {
 		return Timing.waitCondition(new Condition() {
 			@Override
 			public boolean active() {
-				General.sleep(20, 30);
+				General.sleep(200, 250);
 				return Player.getAnimation() != -1 || startItems != Inventory.getCount(Variables.item.getBankItems()[0]);
 			}
 		}, General.random(7000, 8000));
@@ -43,7 +43,7 @@ public class SmeltingHandler {
 		RSObject[] furnace;
 		
 		while(Player.isMoving())
-			General.sleep(20, 30);
+			General.sleep(200, 250);
 		
 		switch(Variables.item.getItemType()) {
 
@@ -58,7 +58,7 @@ public class SmeltingHandler {
 				if(Timing.waitCondition(new Condition() {
 					@Override
 					public boolean active() {
-						General.sleep(20, 30);
+						General.sleep(200, 250);
 						RSInterface i = Interfaces.get(Variables.item.getParentInterface(), Variables.item.getChildInterface());
 						return i != null && !i.isHidden();
 					}
@@ -77,7 +77,7 @@ public class SmeltingHandler {
 							if(Timing.waitCondition(new Condition() {
 								@Override
 								public boolean active() {
-									General.sleep(20, 30);
+									General.sleep(200, 250);
 									RSInterface i = Interfaces.get(Variables.AMOUNT_PARENT, Variables.AMOUNT_CHILD);
 									return i != null && !i.isHidden();
 								}
@@ -88,7 +88,7 @@ public class SmeltingHandler {
 								Timing.waitCondition(new Condition() {
 									@Override
 									public boolean active() {
-										General.sleep(20, 30);
+										General.sleep(200, 250);
 										RSInterface i = Interfaces.get(Variables.AMOUNT_PARENT, Variables.AMOUNT_CHILD);
 										return i == null || i.isHidden();
 									}
@@ -135,7 +135,7 @@ public class SmeltingHandler {
 				if(Timing.waitCondition(new Condition() {
 					@Override
 					public boolean active() {
-						General.sleep(20, 30);
+						General.sleep(200, 250);
 						return Game.getItemSelectionState() == 1 && Game.getSelectedItemName().equals("Steel bar");
 					}
 				}, General.random(500, 1000))) {
@@ -149,7 +149,7 @@ public class SmeltingHandler {
 						if(Timing.waitCondition(new Condition() {
 							@Override
 							public boolean active() {
-								General.sleep(20, 30);
+								General.sleep(200, 250);
 								RSInterface i = Interfaces.get(Variables.item.getParentInterface(), Variables.item.getChildInterface());
 								return i != null && !i.isHidden();
 							}
@@ -186,7 +186,7 @@ public class SmeltingHandler {
 				if(Timing.waitCondition(new Condition() {
 					@Override
 					public boolean active() {
-						General.sleep(20, 30);
+						General.sleep(200, 250);
 						return Game.getItemSelectionState() == 1 && Game.getSelectedItemName().equals("Gold bar");
 					}
 				}, General.random(500, 1000))) {
@@ -200,7 +200,7 @@ public class SmeltingHandler {
 						if(Timing.waitCondition(new Condition() {
 							@Override
 							public boolean active() {
-								General.sleep(20, 30);
+								General.sleep(200, 250);
 								RSInterface i = Interfaces.get(Variables.item.getParentInterface(), Variables.item.getChildInterface());
 								return i != null && !i.isHidden();
 							}
@@ -215,7 +215,7 @@ public class SmeltingHandler {
 								if(Timing.waitCondition(new Condition() {
 									@Override
 									public boolean active() {
-										General.sleep(20, 30);
+										General.sleep(200, 250);
 										RSInterface i = Interfaces.get(Variables.AMOUNT_PARENT, Variables.AMOUNT_CHILD);
 										return i != null && !i.isHidden();
 									}
@@ -226,7 +226,7 @@ public class SmeltingHandler {
 									Timing.waitCondition(new Condition() {
 										@Override
 										public boolean active() {
-											General.sleep(20, 30);
+											General.sleep(200, 250);
 											RSInterface i = Interfaces.get(Variables.AMOUNT_PARENT, Variables.AMOUNT_CHILD);
 											return i == null || i.isHidden();
 										}
@@ -249,7 +249,7 @@ public class SmeltingHandler {
 		Timing.waitCondition(new Condition() {
 			@Override
 			public boolean active() {
-				General.sleep(20, 30);
+				General.sleep(200, 250);
 				return SmeltingHandler.isSmelting();
 			}
 		}, General.random(3000, 4000));

@@ -27,39 +27,25 @@ public class BankHandler {
 				@Override
 				public boolean active() {
 					General.sleep(20, 30);
-					return Inventory.getAll().length <= 3;
+					return Inventory.getAll().length <= 3 && Banking.getAll().length > 0;
 				}
-			}, General.random(1000, 1500))) {
-
-
-				Timing.waitCondition(new Condition() {
-					@Override
-					public boolean active() {
-						General.sleep(20, 30);
-						return Banking.getAll().length > 0;
-					}
-				}, General.random(2000, 300));
+			}, General.random(2000, 2500))) {
 
 				RSItem[] leather = Banking.find(Variables.leather.getID());
 
-				if(leather.length > 0 && leather[0] != null) {
-					if(leather[0].getStack() <= 5) 
-						Variables.running = false;
-				} else
-					Variables.running = false;
-				
-				Banking.withdraw(0, Variables.leather.getID());
+				Variables.running = leather.length > 0 && leather[0].getStack() > 5;
 
-				Timing.waitCondition(new Condition() {
-					@Override
-					public boolean active() {
-						General.sleep(20, 30);
-						return Inventory.isFull();
-					}
-				}, General.random(1000, 1500));
+				if(Banking.withdraw(0, Variables.leather.getID())) {
 
+					Timing.waitCondition(new Condition() {
+						@Override
+						public boolean active() {
+							General.sleep(20, 30);
+							return Inventory.isFull();
+						}
+					}, General.random(1000, 1500));
+				}
 			}
-
 		}
 	}
 

@@ -6,6 +6,7 @@ import org.tribot.api.General;
 import org.tribot.api.Timing;
 import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.Camera;
+import org.tribot.api2007.ChooseOption;
 import org.tribot.api2007.Game;
 import org.tribot.api2007.Objects;
 import org.tribot.api2007.Projection;
@@ -20,6 +21,16 @@ public class Interaction {
         RSObject[] obj = Objects.findNearest(15,name);
         if (obj.length > 0 && obj[0] != null){
             try {
+            	
+            	if(ChooseOption.isOpen()) {
+            		if(ChooseOption.isOptionValid(option)) {
+            			ChooseOption.select(option);
+            			return true;
+            		} else {
+            			ChooseOption.close();
+            		}
+            	}
+            	
                 if (Projection.isInViewport(obj[0].getModel().getCentrePoint())) {
                     if (Clicking.click(option, obj[0])) {
                         return Timing.waitCondition(condition, timeout);
@@ -43,7 +54,16 @@ public class Interaction {
         RSObject[] obj = Objects.findNearest(15,name);
         if (obj.length > 0 && obj[0] != null){
             try {
-            	Camera.setCameraRotation(General.random(Camera.getCameraRotation() - 30, Camera.getCameraRotation() + 30));
+            	
+            	if(ChooseOption.isOpen()) {
+            		if(ChooseOption.isOptionValid(option)) {
+            			ChooseOption.select(option);
+            			return true;
+            		} else {
+            			ChooseOption.close();
+            		}
+            	}
+            	
                 if (Projection.isInViewport(obj[0].getModel().getCentrePoint())) {
                     if (Clicking.click(option, obj[0])) {
                         return Timing.waitCondition(condition, timeout);
