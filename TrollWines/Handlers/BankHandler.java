@@ -7,13 +7,14 @@ import org.tribot.api2007.Banking;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.types.RSItem;
 
+import scripts.TrollWines.Items;
 import scripts.TrollWines.Variables;
 
 public class BankHandler {
 
 	public static boolean needToBank() {
 		
-		return Inventory.getCount(Variables.itemOne) == 0 || Inventory.getCount(Variables.itemTwo) == 0;
+		return Inventory.getCount(Items.GRAPES.getId()) == 0 || Inventory.getCount(Items.JUG.getId()) == 0;
 	}
 	
 	public static void bank() {
@@ -48,15 +49,15 @@ public class BankHandler {
 					}
 				}, General.random(2000, 300));
 				
-				RSItem[] one = Banking.find(Variables.itemOne);
-				RSItem[] two = Banking.find(Variables.itemOne);
+				RSItem[] one = Banking.find(Items.JUG.getId());
+				RSItem[] two = Banking.find(Items.GRAPES.getId());
 				
 				if(one.length == 0 || two.length == 0)
 					Variables.running = false;
 				
-				Banking.withdraw(14, Variables.itemOne);
+				Banking.withdraw(14, Items.JUG.getId());
 					
-				Banking.withdraw(14, Variables.itemTwo);
+				Banking.withdraw(14, Items.GRAPES.getId());
 				
 				
 				

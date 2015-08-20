@@ -45,7 +45,7 @@ public class CombineHandler {
 				if(Timing.waitCondition(new Condition() {
 					@Override
 					public boolean active() {
-						General.sleep(20, 30);
+						General.sleep(200, 250);
 						RSInterface inter = Interfaces.get(309, 6);
 						return inter != null && !inter.isHidden();
 					}
@@ -62,7 +62,7 @@ public class CombineHandler {
 						Timing.waitCondition(new Condition() {
 							@Override
 							public boolean active() {
-								General.sleep(20, 30);
+								General.sleep(200, 250);
 								
 								Variables.abc.performTimedActions(SKILLS.MAGIC);
 																

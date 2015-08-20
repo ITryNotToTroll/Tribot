@@ -15,8 +15,8 @@ public class Combine {
 	}
 	
 	private static State getState() {
-		return (Inventory.getCount(Variables.itemOne) == 0 
-				|| Inventory.getCount(Variables.itemTwo) == 0) 
+		return (Inventory.getCount(Items.GRAPES.getId()) == 0 
+				|| Inventory.getCount(Items.JUG.getId()) == 0) 
 				? State.BANK : State.COMBINE;	
 	}
 	
@@ -26,8 +26,8 @@ public class Combine {
 			BankHandler.bank();
 			break;
 		case COMBINE:
-			CombineHandler.combineItems(Variables.itemOne, Variables.itemOneName,
-					Variables.itemTwo, Variables.itemTwoName);
+			CombineHandler.combineItems(Items.GRAPES.getId(), Items.GRAPES.getName(),
+					Items.JUG.getId(), Items.JUG.getName());
 			break;
 		}
 		

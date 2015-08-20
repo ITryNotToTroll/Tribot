@@ -49,12 +49,11 @@ public class Main extends Script implements Painting, MessageListening07 {
 		General.useAntiBanCompliance(true);
 		ThreadSettings.get().setClickingAPIUseDynamic(true);
 
-		Variables.itemOnePrice = getPrice(Variables.itemOne);
-		Variables.itemTwoPrice = getPrice(Variables.itemTwo);
-		Variables.itemThreePrice = getPrice(Variables.itemThree);
+		Items.GRAPES.setPrice(getPrice(Items.GRAPES.getId()));
+		Items.JUG.setPrice(getPrice(Items.JUG.getId()));
+		Items.WINE.setPrice(getPrice(Items.WINE.getId()));
 
-		Variables.profitPer = Variables.itemThreePrice - Variables.itemOnePrice
-				- Variables.itemTwoPrice;
+		Variables.profitPer = Items.WINE.getPrice() - Items.GRAPES.getPrice() - Items.JUG.getPrice();
 
 		Variables.startTime = Timing.currentTimeMillis();
 
