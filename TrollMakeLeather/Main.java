@@ -62,7 +62,7 @@ public class Main extends Script implements Painting{
 		Variables.startXP = Skills.getXP(SKILLS.MAGIC);
 		Variables.hidePrice = getPrice(Variables.leather.getID());
 		Variables.leatherPrice = getPrice(Variables.leather.getTannedID());
-		Variables.costs = (int) (getPrice(Variables.itemsNotDeposited[0]) * 2 + getPrice(Variables.itemsNotDeposited[1])) / 5;
+		Variables.costs = (int) (getPrice(Constants.RUNES[0]) * 2 + getPrice(Constants.RUNES[1]) / 5);
 		
 		while(Variables.running) {
 			

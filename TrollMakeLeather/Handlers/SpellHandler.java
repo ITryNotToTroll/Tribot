@@ -11,6 +11,7 @@ import org.tribot.api2007.Inventory;
 import org.tribot.api2007.Magic;
 import org.tribot.api2007.types.RSItem;
 
+import scripts.TrollMakeLeather.Constants;
 import scripts.TrollMakeLeather.Variables;
 
 public class SpellHandler {
@@ -20,42 +21,39 @@ public class SpellHandler {
 		if(Timing.waitCondition(new Condition() {
 			@Override
 			public boolean active() {
-				General.sleep(20, 30);
+				General.sleep(200, 250);
 				return !Banking.isBankScreenOpen();
 			}
 		}, General.random(1000, 1500))) {
 
-			if(Inventory.getCount(Variables.itemsNotDeposited[0]) < 2
-					|| Inventory.getCount(Variables.itemsNotDeposited[1]) == 0)
+			if(Inventory.getCount(Constants.RUNES[0]) < 2
+					|| Inventory.getCount(Constants.RUNES[1]) == 0)
 				Variables.running = false;
 
-			if(GameTab.getOpen() != TABS.MAGIC)
-				GameTab.open(TABS.MAGIC);
-
-			if(Timing.waitCondition(new Condition() {
-				@Override
-				public boolean active() {
-					General.sleep(20, 30);
-					return GameTab.getOpen() == TABS.MAGIC;
+			if(GameTab.getOpen() != TABS.MAGIC) { 
+				if(GameTab.open(TABS.MAGIC)) {
+					Timing.waitCondition(new Condition() {
+						@Override
+						public boolean active() {
+							General.sleep(200, 250);
+							return GameTab.getOpen() == TABS.MAGIC;
+						}
+					}, General.random(1000, 1500));
 				}
-			}, General.random(1000, 1500))) {
+			}
 
-				Magic.selectSpell("Tan Leather");
+			if(Magic.selectSpell("Tan Leather")) {
 
-				//General.println("Click ");
-
-				int start = Inventory.getCount(Variables.leather.getID());
-
-				//General.println("Before " + start);
+				final int START = Inventory.getCount(Variables.leather.getID());
 
 				if(Timing.waitCondition(new Condition() {
 					@Override
 					public boolean active() {
-						General.sleep(20, 30);
-					
+						General.sleep(200, 250);
+
 						Variables.abc.performTimedActions(SKILLS.MAGIC);
 
-						return start > Inventory.getCount(Variables.leather.getID());
+						return START > Inventory.getCount(Variables.leather.getID());
 					}
 				}, General.random(2500, 3000))) {
 
@@ -63,13 +61,10 @@ public class SpellHandler {
 
 				}
 
-				//General.println("After " + Inventory.getCount(Variables.leather.getID()));
-
 			}
-
 		}
 
 	}
 
-
 }
+

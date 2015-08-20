@@ -1,5 +1,8 @@
 package scripts.TrollSmelter;
 
+import org.tribot.api.General;
+import org.tribot.api.Timing;
+import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.Banking;
 import org.tribot.api2007.WebWalking;
 import org.tribot.api2007.Skills.SKILLS;
@@ -41,8 +44,17 @@ public class Smelt {
 			break;
 		case BANK:
 			
-			if(!Banking.isBankScreenOpen())
-				Banking.openBank();
+			if(!Banking.isBankScreenOpen()) {
+				if(Banking.openBank()) {
+					Timing.waitCondition(new Condition() {
+						@Override
+						public boolean active() {
+							General.sleep(200, 250);
+							return Banking.isBankScreenOpen();
+						}
+					}, General.random(1500, 2000));
+				}
+			}
 			
 			BankHandler.bank();
 			

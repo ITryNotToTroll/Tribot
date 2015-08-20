@@ -7,6 +7,7 @@ import org.tribot.api2007.Banking;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.types.RSItem;
 
+import scripts.TrollMakeLeather.Constants;
 import scripts.TrollMakeLeather.Variables;
 
 public class BankHandler {
@@ -16,17 +17,17 @@ public class BankHandler {
 		if(Timing.waitCondition(new Condition() {
 			@Override
 			public boolean active() {
-				General.sleep(20, 30);
+				General.sleep(200, 250);
 				return Banking.isBankScreenOpen();
 			}
 		}, General.random(1000, 1500))) {
-
-			Banking.depositAllExcept(Variables.itemsNotDeposited[0], Variables.itemsNotDeposited[1], Variables.leather.getID());
+			
+			Banking.depositAllExcept(Constants.RUNES[0], Constants.RUNES[1], Variables.leather.getID());
 
 			if(Timing.waitCondition(new Condition() {
 				@Override
 				public boolean active() {
-					General.sleep(20, 30);
+					General.sleep(200, 250);
 					return Inventory.getAll().length <= 3 && Banking.getAll().length > 0;
 				}
 			}, General.random(2000, 2500))) {
@@ -40,7 +41,7 @@ public class BankHandler {
 					Timing.waitCondition(new Condition() {
 						@Override
 						public boolean active() {
-							General.sleep(20, 30);
+							General.sleep(200, 250);
 							return Inventory.isFull();
 						}
 					}, General.random(1000, 1500));

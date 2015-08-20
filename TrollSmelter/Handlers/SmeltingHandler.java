@@ -39,12 +39,12 @@ public class SmeltingHandler {
 	}
 
 	public static void smelt() {
-		
+
 		RSObject[] furnace;
-		
+
 		while(Player.isMoving())
 			General.sleep(200, 250);
-		
+
 		switch(Variables.item.getItemType()) {
 
 		case BAR:
@@ -53,63 +53,55 @@ public class SmeltingHandler {
 
 			if(furnace.length > 0 && furnace[0] != null) {
 
-				furnace[0].click("Smelt Furnace");
+				if(furnace[0].click("Smelt Furnace")) {
 
-				if(Timing.waitCondition(new Condition() {
-					@Override
-					public boolean active() {
-						General.sleep(200, 250);
-						RSInterface i = Interfaces.get(Variables.item.getParentInterface(), Variables.item.getChildInterface());
-						return i != null && !i.isHidden();
-					}
-				}, General.random(1500, 2500))) {
+					Timing.waitCondition(new Condition() {
+						@Override
+						public boolean active() {
+							General.sleep(200, 250);
+							RSInterface i = Interfaces.get(Variables.item.getParentInterface(), Variables.item.getChildInterface());
+							return i != null && !i.isHidden();
+						}
+					}, General.random(1500, 2500));
 
 					RSInterface makeAll = Interfaces.get(Variables.item.getParentInterface(), Variables.item.getChildInterface());
 
 					if(makeAll != null && !makeAll.isHidden()) {
-						
+
 						switch(Variables.item.getMakeInt()) {
-						
+
 						case 0:
-							
-							makeAll.click("Smelt X");
-							
-							if(Timing.waitCondition(new Condition() {
-								@Override
-								public boolean active() {
-									General.sleep(200, 250);
-									RSInterface i = Interfaces.get(Variables.AMOUNT_PARENT, Variables.AMOUNT_CHILD);
-									return i != null && !i.isHidden();
-								}
-							}, General.random(2000, 3000))) {
-								
-								Keyboard.typeSend(General.random(28, 99) + "");
-								
-								Timing.waitCondition(new Condition() {
+
+							if(makeAll.click("Smelt X")) {
+
+								if(Timing.waitCondition(new Condition() {
 									@Override
 									public boolean active() {
 										General.sleep(200, 250);
 										RSInterface i = Interfaces.get(Variables.AMOUNT_PARENT, Variables.AMOUNT_CHILD);
-										return i == null || i.isHidden();
+										return i != null && !i.isHidden();
 									}
-								}, General.random(2000, 3000));
-								
+								}, General.random(2000, 3000))) {
+
+									Keyboard.typeSend(General.random(28, 99) + "");
+									
+								}
 							}
-							
+
 							break;
-							
+
 						case 5:
-							
+
 							makeAll.click("Smelt 5");
-							
+
 							break;
-							
+
 						case 10:
-							
+
 							makeAll.click("Smelt 10");
-							
+
 							break;
-						
+
 						}
 
 					}
@@ -126,45 +118,44 @@ public class SmeltingHandler {
 
 				RSItem[] bars = Inventory.find(Variables.ItemID.STEEL_BAR.getID());
 
-				if(bars.length > 0 && bars[0] != null) {
+				if(bars.length > 0 && bars[0] != null && !Game.getSelectedItemName().equals("Steel bar")) {
 
-					bars[0].click();
+					if(bars[0].click()) {
 
-				}
-
-				if(Timing.waitCondition(new Condition() {
-					@Override
-					public boolean active() {
-						General.sleep(200, 250);
-						return Game.getItemSelectionState() == 1 && Game.getSelectedItemName().equals("Steel bar");
-					}
-				}, General.random(500, 1000))) {
-
-					furnace = Objects.find(10, Variables.FURNACE_NAME);
-
-					if(furnace.length > 0 && furnace[0] != null) {
-
-						furnace[0].click("Use Steel bar -> Furnace");
-
-						if(Timing.waitCondition(new Condition() {
+						Timing.waitCondition(new Condition() {
 							@Override
 							public boolean active() {
 								General.sleep(200, 250);
-								RSInterface i = Interfaces.get(Variables.item.getParentInterface(), Variables.item.getChildInterface());
-								return i != null && !i.isHidden();
+								return Game.getItemSelectionState() == 1 && Game.getSelectedItemName().equals("Steel bar");
 							}
-						}, General.random(1500, 2500))) {
-
-							RSInterface makeAll = Interfaces.get(Variables.item.getParentInterface(), Variables.item.getChildInterface());
-
-							if(makeAll != null && !makeAll.isHidden()) {
-								makeAll.click();
-							}
-
-						}
+						}, General.random(500, 1000));
 
 					}
 
+				}
+			}
+
+			furnace = Objects.find(10, Variables.FURNACE_NAME);
+
+			if(furnace.length > 0 && furnace[0] != null) {
+
+				if(furnace[0].click("Use Steel bar -> Furnace")) {
+
+					Timing.waitCondition(new Condition() {
+						@Override
+						public boolean active() {
+							General.sleep(200, 250);
+							RSInterface i = Interfaces.get(Variables.item.getParentInterface(), Variables.item.getChildInterface());
+							return i != null && !i.isHidden();
+						}
+					}, General.random(1500, 2500));
+
+				}
+
+				RSInterface makeAll = Interfaces.get(Variables.item.getParentInterface(), Variables.item.getChildInterface());
+
+				if(makeAll != null && !makeAll.isHidden()) {
+					makeAll.click();
 				}
 
 			}
@@ -179,73 +170,60 @@ public class SmeltingHandler {
 
 				if(bars.length > 0 && bars[0] != null) {
 
-					bars[0].click();
+					if(bars[0].click()) {
+
+						Timing.waitCondition(new Condition() {
+							@Override
+							public boolean active() {
+								General.sleep(200, 250);
+								return Game.getItemSelectionState() == 1 && Game.getSelectedItemName().equals("Gold bar");
+							}
+						}, General.random(500, 1000));
+					}
 
 				}
 
-				if(Timing.waitCondition(new Condition() {
-					@Override
-					public boolean active() {
-						General.sleep(200, 250);
-						return Game.getItemSelectionState() == 1 && Game.getSelectedItemName().equals("Gold bar");
-					}
-				}, General.random(500, 1000))) {
 
-					furnace = Objects.find(10, Variables.FURNACE_NAME);
+				furnace = Objects.find(10, Variables.FURNACE_NAME);
 
-					if(furnace.length > 0 && furnace[0] != null) {
+				if(furnace.length > 0 && furnace[0] != null) {
 
-						furnace[0].click("Use Gold bar -> Furnace");
+					if(furnace[0].click("Use Gold bar -> Furnace")) {
 
-						if(Timing.waitCondition(new Condition() {
+						Timing.waitCondition(new Condition() {
 							@Override
 							public boolean active() {
 								General.sleep(200, 250);
 								RSInterface i = Interfaces.get(Variables.item.getParentInterface(), Variables.item.getChildInterface());
 								return i != null && !i.isHidden();
 							}
-						}, General.random(1500, 2500))) {
+						}, General.random(1500, 2500));
+					}
+				}
 
-							RSInterface makeAll = Interfaces.get(Variables.item.getParentInterface(), Variables.item.getChildInterface());
+				RSInterface makeAll = Interfaces.get(Variables.item.getParentInterface(), Variables.item.getChildInterface());
 
-							if(makeAll != null && !makeAll.isHidden()) {
-								
-								makeAll.click("Make-X");
-								
-								if(Timing.waitCondition(new Condition() {
-									@Override
-									public boolean active() {
-										General.sleep(200, 250);
-										RSInterface i = Interfaces.get(Variables.AMOUNT_PARENT, Variables.AMOUNT_CHILD);
-										return i != null && !i.isHidden();
-									}
-								}, General.random(2000, 3000))) {
-									
-									Keyboard.typeSend(General.random(28, 99) + "");
-									
-									Timing.waitCondition(new Condition() {
-										@Override
-										public boolean active() {
-											General.sleep(200, 250);
-											RSInterface i = Interfaces.get(Variables.AMOUNT_PARENT, Variables.AMOUNT_CHILD);
-											return i == null || i.isHidden();
-										}
-									}, General.random(2000, 3000));
-									
-								}
+				if(makeAll != null && !makeAll.isHidden()) {
 
+					if(makeAll.click("Make-X")) {
+
+						Timing.waitCondition(new Condition() {
+							@Override
+							public boolean active() {
+								General.sleep(200, 250);
+								RSInterface i = Interfaces.get(Variables.AMOUNT_PARENT, Variables.AMOUNT_CHILD);
+								return i != null && !i.isHidden();
 							}
-
-						}
+						}, General.random(2000, 3000));
 
 					}
 
+					Keyboard.typeSend(General.random(28, 99) + "");
 				}
-
 			}
 			break;
 		}
-		
+
 		Timing.waitCondition(new Condition() {
 			@Override
 			public boolean active() {
@@ -253,6 +231,6 @@ public class SmeltingHandler {
 				return SmeltingHandler.isSmelting();
 			}
 		}, General.random(3000, 4000));
-		
+
 	}
 }

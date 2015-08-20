@@ -13,8 +13,6 @@ public class Variables {
 	public static boolean running = true;
 	
 	public static Leather leather;
-
-	public static int[] itemsNotDeposited = {9075, 561};
 	
 	public enum Leather {
 		GREEN_DRAGONHIDE(1753, 1745),
